@@ -634,7 +634,7 @@ Blockly.JavaScript['relay'] = function (block) {
   var state = block.getFieldValue('replayState');
 
   const payload = JSON.stringify({
-    type: 'RELAY',
+    type: 'IOT_RUN_RELAY',
     message: {
       state,
     },
@@ -866,7 +866,7 @@ Blockly.JavaScript['srf05_IoT'] = function (block) {
   if (dropdown_port_2 == 'Pin 16') var pin2 = 16;
 
   const payload = JSON.stringify({
-    type: 'GET_SRF_SENSOR',
+    type: 'IOT_READ_SRF05',
     pin1,
     pin2
   });
