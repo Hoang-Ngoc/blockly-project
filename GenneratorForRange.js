@@ -857,6 +857,11 @@ Blockly.JavaScript['wait_until'] = function (block) {
 
 
 
+
+
+
+
+
 //=============== Sensor for Board IoT====================//
 Blockly.JavaScript['srf05_IoT'] = function (block) {
   var dropdown_port_1 = block.getFieldValue('pin1');
@@ -884,11 +889,11 @@ Blockly.JavaScript['temperature_sensor'] = function (block) {
   var type_Sensor = block.getFieldValue('typeSensor')
   if(type_Sensor == 'Temp')
   {
-    var type = 'GET_TEMPERATURE_SENSOR';
+    var type = 'IOT_READ_DHT11_TEMPERATURE_SENSOR';
   }
   else if (type_Sensor == 'Hum')
   {
-    var type = 'GET_HUMIDITY_SENSOR';
+    var type = 'IOT_READ_DHT11_HUMIDITY_SENSOR';
   }
 
   const payload = JSON.stringify({
@@ -907,7 +912,7 @@ Blockly.JavaScript['infread_sensor'] = function (block) {
   if (dropdown_port == 'Pin 3') var pin = 3;
 
   const payload = JSON.stringify({
-    type: 'GET_INFREAD_SENSOR',
+    type: 'IOT_READ_INFRARED_SENSOR',
     pin,
   });
   var code = "sendApp('" + payload + "')";
@@ -930,7 +935,7 @@ Blockly.JavaScript['rain_sensor'] = function (block) {
   }
 
   const payload = JSON.stringify({
-    type: 'GET_RAIN_SENSOR',
+    type: 'IOT_READ_RAIN_SENSOR',
     type_mode,
     pin,
   });
@@ -954,7 +959,7 @@ Blockly.JavaScript['gas_sensor'] = function (block) {
   }
 
   const payload = JSON.stringify({
-    type: 'GET_GAS_SENSOR',
+    type: 'IOT_READ_GAS_SENSOR',
     type_mode,
     pin,
   });
@@ -967,7 +972,7 @@ Blockly.JavaScript['motion_sensor'] = function (block) {
   if (dropdown_port == 'Pin 3') var pin = 3;
 
   const payload = JSON.stringify({
-    type: 'GET_MOTION_SENSOR',
+    type: 'IOT_READ_MOTION_SENSOR',
     pin,
   });
   var code = "sendApp('" + payload + "')";
@@ -989,7 +994,7 @@ Blockly.JavaScript['soil_sensor'] = function (block) {
   }
 
   const payload = JSON.stringify({
-    type: 'GET_SOIL_SENSOR',
+    type: 'IOT_READ_SOIL_SENSOR',
     type_mode,
     pin,
   });
@@ -1012,7 +1017,7 @@ Blockly.JavaScript['light_sensor_IoT'] = function (block) {
   }
 
   const payload = JSON.stringify({
-    type: 'GET_LIGHT_SENSOR',
+    type: 'IOT_READ_LIGHT_SENSOR',
     type_mode,
     port,
   });
@@ -1026,10 +1031,260 @@ Blockly.JavaScript['sound_sensor_IoT'] = function (block) {
   if (dropdown_port == 'Pin 46') var pin = 46;
 
   const payload = JSON.stringify({
-    type: 'GET_SOUND_SENSOR',
+    type: 'IOT_READ_SOUND_SENSOR',
     pin,
   });
   var code = "sendApp('" + payload + "')";
   return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+
+
+
+
+//===============Các cơ cấu chấp hành for Board IoT=======================//
+Blockly.JavaScript['Field_ledSegments_IoT'] = function (block) {
+  var mapToBlocklySegLed = [0, 7, 3, 5, 6, 1, 2];
+  var seg1 = block.getFieldValue('Map').segment1.split(',').map(v => v !== 'false');
+  var seg2 = block.getFieldValue('Map').segment2.split(',').map(v => v !== 'false');
+  var seg3 = block.getFieldValue('Map').segment3.split(',').map(v => v !== 'false');
+  var seg4 = block.getFieldValue('Map').segment4.split(',').map(v => v !== 'false');
+  var time = Blockly.JavaScript.valueToCode(block, 'Duration', Blockly.JavaScript.ORDER_NONE) || '0';
+
+  let outputList = {};
+  var segment1Value = 0;
+  for(let i = 0; i < 7; i++)
+  {
+    segment1Value += (seg1[i] * Math.pow(2, mapToBlocklySegLed[i]));
+  }
+  outputList['segment1'] = ("0x" + segment1Value.toString(16));
+
+  var segment2Value = 0;
+  for(let i = 0; i < 7; i++)
+  {
+    segment2Value += (seg2[i] * Math.pow(2, mapToBlocklySegLed[i]));
+  }
+  outputList['segment2'] = ("0x" + segment2Value.toString(16));
+
+  var segment3Value = 0;
+  for(let i = 0; i < 7; i++)
+  {
+    segment3Value += (seg3[i] * Math.pow(2, mapToBlocklySegLed[i]));
+  }
+  outputList['segment3'] = ("0x" + segment3Value.toString(16));
+
+  var segment4Value = 0;
+  for(let i = 0; i < 7; i++)
+  {
+    segment4Value += (seg4[i] * Math.pow(2, mapToBlocklySegLed[i]));
+  }
+  outputList['segment4'] = ("0x" + segment4Value.toString(16));
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_SEGMENT',
+    message: {
+      outputList,
+      time
+    },
+  });
+  var code = "sendApp('" + payload + "');\n" + 'waitForSeconds(' + time + ');\n';
+  //console.log('LED_7 MAP: ' + code);
+  return code;
+};
+
+Blockly.JavaScript['Relay_IoT'] = function (block) {
+  var state = block.getFieldValue('replayState');
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_RELAY',
+    message: {
+      state,
+    },
+  });
+  var code = "sendApp('" + payload + "');";
+  //console.log('RELAY: ' + code);
+  return code;
+};
+
+Blockly.JavaScript['Lcd_display_IoT'] = function (block) {
+  var dropdown_port_1 = block.getFieldValue('pin1');
+  if(dropdown_port_1 == 'Pin 8')
+  {
+    var pin_1 = 8;
+  }
+
+  var dropdown_port_2 = block.getFieldValue('pin2');
+  if(dropdown_port_2 == 'Pin 9')
+  {
+    var pin_2 = 9;
+  }
+
+  var row = block.getFieldValue('ROW');
+  var text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || "''";
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_LCD',
+    pin_1,
+    pin_2,
+    message: {
+      row: parseInt(row),
+      text: text
+    },
+  });
+
+  var code = "sendApp('" + payload + "');\n";
+  return code;
+};
+
+Blockly.JavaScript['Oled_display_IoT'] = function (block) {
+  var dropdown_port_1 = block.getFieldValue('pin1');
+  if(dropdown_port_1 == 'Pin 8')
+  {
+    var pin_1 = 8;
+  }
+
+  var dropdown_port_2 = block.getFieldValue('pin2');
+  if(dropdown_port_2 == 'Pin 9')
+  {
+    var pin_2 = 9;
+  }
+
+  var x = block.getFieldValue('X');
+  var y = block.getFieldValue('Y');
+  var text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || "''";
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_OLED',
+    pin_1,
+    pin_2,
+    message: {
+      x: parseInt(x),
+      y: parseInt(y),
+      text: text
+    },
+  });
+
+  var code = "sendApp('" + payload + "');\n";
+  return code;
+};
+
+Blockly.JavaScript['Motor_control_IoT'] = function (block) {
+  var dropdown_port_1 = block.getFieldValue('pin1');
+  if(dropdown_port_1 == "Pin 41")
+  {
+    var pin_1 = 41;
+  }
+
+  var dropdown_port_2 = block.getFieldValue('pin2');
+  if(dropdown_port_2 == "Pin 42")
+  {
+    var pin_2 = 42;
+  }
+
+  var dropdown_port_3 = block.getFieldValue('pin3');
+  if(dropdown_port_3 == "Pin 40")
+  {
+    var pin_3 = 40;
+  }
+
+  var speed = Blockly.JavaScript.valueToCode(block, 'SPEED', Blockly.JavaScript.ORDER_NONE) || '0';
+
+  var time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_MOTOR',
+    pin_1,pin_2,pin_3,
+    speed: speed,
+    time: time
+  });
+
+  var code = "sendApp('" + payload + "');\n" +
+             "waitForSeconds(" + time + ");\n";
+
+  return code;
+};
+
+Blockly.JavaScript['Servo_control_IoT'] = function (block) {
+  var dropdown_port = block.getFieldValue('pin');
+  if(dropdown_port == "Pin 14")
+  {
+    var pin = 14;
+  }
+
+  var angel = Blockly.JavaScript.valueToCode(block, 'ANGEL', Blockly.JavaScript.ORDER_NONE) || '0';
+
+  var time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_SERVO',
+    pin,
+    angel: angel,
+    time: time
+  });
+
+  var code = "sendApp('" + payload + "');\n" +
+             "waitForSeconds(" + time + ");\n";
+
+  return code;
+};
+
+Blockly.JavaScript['Text_input_IoT'] = function(block) {
+
+  var text = block.getFieldValue('TEXT');
+
+  return ['"' + text + '"', Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
+Blockly.JavaScript['Buzzer_beep_IoT'] = function (block) {
+  var dropdown_port = block.getFieldValue('Port');
+  var time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
+
+  var port = parseInt(dropdown_port.replace('Port ', ''));
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_BUZZER',
+    port,
+    time: time
+  });
+
+  var code = "sendApp('" + payload + "');\n" +
+             "waitForSeconds(" + time + ");\n";
+
+  return code;
+};
+
+
+Blockly.JavaScript['Single_led_IoT'] = function (block) {
+  var state = block.getFieldValue('singleLedState');
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_LED_SINGLE',
+    message: {
+      state,
+    },
+  });
+  var code = "sendApp('" + payload + "');";
+  //console.log('SINGLE LED: ' + code);
+  return code;
+};
+
+Blockly.JavaScript['RGB_led_IoT'] = function (block) {
+  var colour_color_left = block.getFieldValue('color_left');
+  var colour_color_right = block.getFieldValue('color_right');
+  var number_duration = Blockly.JavaScript.valueToCode(block, 'Duration', Blockly.JavaScript.ORDER_NONE) || '0';
+
+  const payload = JSON.stringify({
+    type: 'IOT_RUN_LED_RGB',
+    message: {
+      bulb1: colour_color_left,
+      bulb2: colour_color_right,
+      duration: number_duration,
+    },
+  });
+
+  console.log('[Blockly generate] payload =', payload);
+  var code = "sendApp('" + payload + "');\n" + 'waitForSeconds(' + number_duration + ');\n';
+  return code;
 };
 

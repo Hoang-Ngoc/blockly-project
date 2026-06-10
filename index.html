@@ -187,6 +187,36 @@
                     <field name="pin">Pin 46</field>
                 </block>
             </category>
+            <category name="Display_IoT" categorystyle="list_category">
+                <block type="Field_ledSegments_IoT">
+                  <value name="Duration">
+                        <block type="calculator"></block>
+                    </value>
+                </block>
+                <block type="Relay_IoT">
+                </block>
+                <block type="Lcd_display_IoT">
+                </block>
+                <block type="Oled_display_IoT">
+                </block>
+                <block type="Motor_control_IoT">
+                </block>
+                <block type="Servo_control_IoT">
+                </block>
+                <block type="Text_input_IoT">
+                </block>
+                <block type="Buzzer_beep_IoT">
+                </block>
+                <block type="Single_led_IoT">
+                </block>
+                <block type="RGB_led_IoT">
+                    <field name="color_left">#00cccc</field>
+                    <field name="color_right">#00cccc</field>
+                    <value name="Duration">
+                        <block type="calculator"></block>
+                    </value>
+                </block>
+            </category>
             <category name="Calculation" categorystyle="list_category">
                 <block type="logic_operation"></block>
                     <field name="OP">AND</field>

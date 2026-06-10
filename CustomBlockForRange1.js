@@ -1485,3 +1485,329 @@ Blockly.Blocks['sound_sensor_IoT'] = {
   },
 };
 
+
+
+
+
+//=========Các cơ cấu chấp hành cho Board IoT==============//
+Blockly.Blocks['Field_ledSegments_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/dot_matrix.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('7-segment LED display')
+      .appendField(new CustomFields.FieldSegmentLed(), 'Map')
+      .appendField('for');
+    this.appendValueInput('Duration');
+    this.appendDummyInput().appendField('seconds');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(180);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  },
+};
+
+Blockly.Blocks['Relay_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/relay.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('Control Relay')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Close', 'true'],
+          ['Open', 'false'],
+        ]),
+        'replayState',
+      )
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(135);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  },
+};
+
+Blockly.Blocks['Lcd_display_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/lcd.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('LCD display at')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 8', 'Pin 8'],
+        ]),
+        'pin1'
+      )
+
+      .appendField(' and ')
+
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 9', 'Pin 9'],
+        ]),
+        'pin2'
+      );
+
+    this.appendValueInput('TEXT')
+      .appendField('show text');
+
+    this.appendDummyInput()
+      .appendField('at row')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Row 1', '0'],
+          ['Row 2', '1'],
+        ]),
+        'ROW'
+      );
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(180);
+  },
+};
+
+Blockly.Blocks['Oled_display_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/oled.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('OLED display at')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 8', 'Pin 8'],
+        ]),
+        'pin1'
+      )
+
+      .appendField(' and ')
+
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 9', 'Pin 9'],
+        ]),
+        'pin2'
+      );
+
+    this.appendValueInput('TEXT')
+      .appendField('show text');
+
+    this.appendDummyInput()
+      .appendField('at X')
+      .appendField(new Blockly.FieldNumber(0, 0, 127), 'X')
+      .appendField('Y')
+      .appendField(new Blockly.FieldNumber(0, 0, 63), 'Y');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(200);
+    this.setTooltip('Display text on OLED');
+  },
+};
+
+Blockly.Blocks['Motor_control_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/motor2.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('Control motor at')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 41', 'Pin 41'],
+        ]),
+        'pin1'
+      )
+
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 42', 'Pin 42'],
+        ]),
+        'pin2'
+      )
+
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 40', 'Pin 40'],
+        ]),
+        'pin3'
+      );
+
+      this.appendValueInput('SPEED')
+      .appendField('speed');
+
+    this.appendValueInput('TIME')
+      .appendField('beep for (seconds)');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+  },
+};
+
+Blockly.Blocks['Servo_control_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/servo1.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('Control Servo at')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Pin 14', 'Pin 14'],
+        ]),
+        'pin'
+      );
+
+      this.appendValueInput('ANGEL')
+      .appendField('angel');
+
+      this.appendValueInput('TIME')
+      .appendField('beep for (seconds)');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+  },
+};
+
+Blockly.Blocks['Text_input_IoT'] = {
+  init: function () {
+
+    this.appendDummyInput()
+      .appendField('Text')
+      .appendField(
+        new Blockly.FieldTextInput('hello'),
+        'TEXT'
+      );
+
+    this.setOutput(true, null);
+
+    this.setColour(230);
+  },
+};
+
+Blockly.Blocks['Buzzer_beep_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/buzzer.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('Buzzer at')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Port 1', 'Port 1'],
+          ['Port 2', 'Port 2'],
+          ['Port 3', 'Port 3'],
+          ['Port 4', 'Port 4'],
+        ]),
+        'Port'
+      );
+
+    this.appendValueInput('TIME')
+      .appendField('beep for (seconds)');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+  },
+};
+
+
+Blockly.Blocks['Single_led_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/rgb_led.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .appendField('Control LED')
+      .appendField(
+        new Blockly.FieldDropdown([
+          [
+            {
+              src: 'Utils/BlockIcon/light_on.png',
+              width: 30,
+              height: 30,
+              alt: 'On',
+            },
+            'true',
+          ],
+          [
+            {
+              src: 'Utils/BlockIcon/light_off.png',
+              width: 30,
+              height: 30,
+              alt: 'Off',
+            },
+            'false',
+          ],
+        ]),
+        'singleLedState',
+      )
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(135);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  },
+};
+
+Blockly.Blocks['RGB_led_IoT'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('Utils/BlockIcon/rgb_led.png', 30, 30, {
+          alt: '*',
+          flipRtl: 'FALSE',
+        }),
+      )
+      .setAlign(Blockly.ALIGN_CENTRE)
+      .appendField('RGB LED light color')
+      .appendField(new Blockly.FieldColour('#00cccc'), 'color_left')
+      .appendField(new Blockly.FieldColour('#00cccc'), 'color_right')
+      .appendField('for');
+    this.appendValueInput('Duration');
+    this.appendDummyInput().appendField('seconds');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(180);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  },
+};
+
