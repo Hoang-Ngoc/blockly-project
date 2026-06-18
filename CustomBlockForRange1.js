@@ -1320,8 +1320,8 @@ Blockly.Blocks['Relay_IoT'] = {
       .appendField('Control Relay')
       .appendField(
         new Blockly.FieldDropdown([
-          ['Close', 'true'],
-          ['Open', 'false'],
+          ['Close', '1'],
+          ['Open', '0'],
         ]),
         'replayState',
       )
@@ -1558,7 +1558,7 @@ Blockly.Blocks['Single_led_IoT'] = {
               height: 30,
               alt: 'On',
             },
-            'true',
+            '1',
           ],
           [
             {
@@ -1567,7 +1567,7 @@ Blockly.Blocks['Single_led_IoT'] = {
               height: 30,
               alt: 'Off',
             },
-            'false',
+            '0',
           ],
         ]),
         'singleLedState',

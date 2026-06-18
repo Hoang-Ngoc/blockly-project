@@ -634,7 +634,7 @@ Blockly.JavaScript['relay'] = function (block) {
   var state = block.getFieldValue('replayState');
 
   const payload = JSON.stringify({
-    type: 'IOT_RUN_RELAY',
+    type: 'RELAY',
     message: {
       state,
     },
