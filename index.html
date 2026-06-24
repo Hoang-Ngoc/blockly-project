@@ -420,6 +420,13 @@
             }, false);
 
             function sendApp(payload) {
+
+                // console.log("SENDAPP:", payload);
+                // console.log("--- GIÁ TRỊ CẢM BIẾN HIỆN TẠI VỀ WEB ---");
+                // console.log("Giá trị (Value):", window.currentValue);
+                // console.log("Kiểu dữ liệu (Type):", typeof window.currentValue);
+                // console.log("-----------------------------------------");
+
                 if(window.ReactNativeWebView)
                 {
                     console.log("React native");
@@ -435,6 +442,8 @@
                     window.location.hash = '';
                     console.log(payload);
                     return undefined;
+                    // window.currentValue = 123;
+                    // return window.currentValue;
                 }
                 
                 return window.currentValue;

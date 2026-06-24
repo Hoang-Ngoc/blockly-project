@@ -459,32 +459,6 @@ Blockly.JavaScript['dummy_play_block'] = function (block) {
   return code;
 };
 
-Blockly.JavaScript['if_block'] = function (block) {
-  var value_condition = Blockly.JavaScript.valueToCode(
-    block,
-    'condition',
-    Blockly.JavaScript.ORDER_ATOMIC,
-  );
-  var statements_if_block = Blockly.JavaScript.statementToCode(
-    block,
-    'if block',
-  );
-  var statements_else_block = Blockly.JavaScript.statementToCode(
-    block,
-    'else block',
-  );
-  var code =
-    'if(' +
-    value_condition +
-    '){\n' +
-    statements_if_block +
-    '\n}' +
-    'else{\n' +
-    statements_else_block +
-    '\n}';
-  return code;
-};
-
 Blockly.JavaScript['if1'] = function (block) {
   var value_condition = Blockly.JavaScript.valueToCode(
     block,
@@ -973,6 +947,10 @@ Blockly.JavaScript['Lcd_display_IoT'] = function (block) {
   var row = block.getFieldValue('ROW');
   var text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || "''";
 
+  if (text.startsWith('"') && text.endsWith('"')) {
+    text = text.slice(1, -1);
+  }
+
   const payload = JSON.stringify({
     type: 'IOT_RUN_LCD',
     pin_1,
@@ -1003,6 +981,10 @@ Blockly.JavaScript['Oled_display_IoT'] = function (block) {
   var x = block.getFieldValue('X');
   var y = block.getFieldValue('Y');
   var text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || "''";
+
+  if ((text.startsWith("'") && text.endsWith("'")) || (text.startsWith('"') && text.endsWith('"'))) {
+    text = text.slice(1, -1);
+  }
 
   const payload = JSON.stringify({
     type: 'IOT_RUN_OLED',
