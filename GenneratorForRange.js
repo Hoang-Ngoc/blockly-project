@@ -844,7 +844,7 @@ Blockly.JavaScript['light_sensor_IoT'] = function (block) {
   const payload = JSON.stringify({
     type: 'IOT_READ_LIGHT_SENSOR',
     type_mode,
-    pin_1,
+    pin,
   });
   var code = "sendApp('" + payload + "')";
   // Android.JSrequsetShow("light sensor: ");
