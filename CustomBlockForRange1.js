@@ -974,12 +974,38 @@ Blockly.Blocks['keyboard'] = {
 
 Blockly.Blocks['calculator'] = {
   init: function () {
-    this.appendDummyInput().appendField(new CustomFields.FieldCalculate(1, 0, 1000, 1), 'Value');
+    this.appendDummyInput().appendField(new CustomFields.FieldCalculate(1, 0, 5000, 1), 'Value');
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip('');
     this.setHelpUrl('');
   },
+};
+
+Blockly.Blocks['math_arithmetic_2'] = {
+  init: function () {
+
+    this.appendValueInput("A")
+        .setCheck("Number");
+
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([
+            ["+", "ADD"],
+            ["-", "MINUS"],
+            ["×", "MULTIPLY"],
+            ["÷", "DIVIDE"],
+            ["^", "POWER"]
+        ]), "OP");
+
+    this.appendValueInput("B")
+        .setCheck("Number");
+
+    this.setInputsInline(true);
+    this.setOutput(true, "Number");
+    this.setStyle("math_blocks");
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
 };
 
 Blockly.Blocks['wait_until'] = {

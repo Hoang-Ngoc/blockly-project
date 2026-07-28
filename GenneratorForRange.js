@@ -672,6 +672,70 @@ Blockly.JavaScript['calculator'] = function (block) {
   return [code, order];
 };
 
+Blockly.JavaScript['math_arithmetic_2'] = function (block) {
+
+    var operator = block.getFieldValue('OP');
+
+    var order = Blockly.JavaScript.ORDER_ADDITION;
+    var op = "+";
+
+    switch (operator) {
+        case "ADD":
+            op = "+";
+            order = Blockly.JavaScript.ORDER_ADDITION;
+            break;
+
+        case "MINUS":
+            op = "-";
+            order = Blockly.JavaScript.ORDER_SUBTRACTION;
+            break;
+
+        case "MULTIPLY":
+            op = "*";
+            order = Blockly.JavaScript.ORDER_MULTIPLICATION;
+            break;
+
+        case "DIVIDE":
+            op = "/";
+            order = Blockly.JavaScript.ORDER_DIVISION;
+            break;
+
+        case "POWER":
+            var a = Blockly.JavaScript.valueToCode(
+                block,
+                "A",
+                Blockly.JavaScript.ORDER_NONE
+            ) || 0;
+
+            var b = Blockly.JavaScript.valueToCode(
+                block,
+                "B",
+                Blockly.JavaScript.ORDER_NONE
+            ) || 0;
+
+            return [
+                "Math.pow(" + a + ", " + b + ")",
+                Blockly.JavaScript.ORDER_FUNCTION_CALL
+            ];
+    }
+
+    var argument0 = Blockly.JavaScript.valueToCode(
+        block,
+        "A",
+        order
+    ) || 0;
+
+    var argument1 = Blockly.JavaScript.valueToCode(
+        block,
+        "B",
+        order
+    ) || 0;
+
+    var code = argument0 + " " + op + " " + argument1;
+
+    return [code, order];
+};
+
 Blockly.JavaScript['wait_until'] = function (block) {
   var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC) || '0';
   // TODO: Assemble JavaScript into code variable.

@@ -1,15 +1,19 @@
-/* Adds padding around the group of categories and separators. */
+/* ================= TOOLBOX CONTENT ================= */
 .blocklyToolboxContents {
     padding-right: 5px;
     width: 100%;
-    height: 95%;
+    height: 100%;
     display: flex;
-    /* flex-direction: column; */
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
-.blocklyToolboxContents:after
-{
+/* Vertical divider */
+.blocklyToolboxContents:after {
     content: "";
     position: absolute;
     background: #A494FF;
@@ -19,79 +23,67 @@
     width: 1px;
 }
 
-/* Adds space between the categories, rounds the corners and adds space around the label. */
+/* ================= CATEGORY ================= */
+.blocklyToolboxCategory {
+    width: 100%;
+    height: 60px;
+    max-height: 2cm;
+    flex: none;
+    display: flex;
+    align-items: center;
+}
+
+/* Category button */
 .blocklyTreeRow {
     box-sizing: border-box;
-    height: 100%;
     width: 100%;
-    /* Auto layout */
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-start;
-    padding: 0px 12px 0px 0px;
+    align-items: center;
+    padding: 0px 12px;
     gap: 4px;
-    
     background: rgba(114, 94, 189, 0.5);
     border: 1px solid #A494FF;
     border-radius: 45% / 150%;
-    
-    /* Inside auto layout */
-    
     flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
-.blocklyToolboxCategory
-{
-    height: 14%;
-    max-height: 2cm;
-    display: flex;
-    align-items: stretch;
-}
-/* Changes color of the icon to white. */
-
+/* ================= ICON + LABEL ================= */
 .customIcon {
     color: rgba(238, 237, 245, 0);
 }
 
-/* Stacks the icon on top of the label. */
-
 .blocklyTreeRowContentContainer {
-    height: 100%;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-/* Makes our label white. */
 .blocklyTreeLabel {
     font-size: auto;
     color: white;
-    justify-self: stretch;
     align-self: center;
-    text-align: center
+    text-align: center;
 }
 
-.blocklyTreeRow {
-    height: initial;
-}
-
-
+/* ================= TOOLBOX ================= */
 .blocklyToolboxDiv {
     height: 100%;
     width: 20%;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin-bottom: 1mm;
     margin-left: 1mm;
     margin-right: 1px;
     overflow: hidden;
 }
 
+/* ================= FLYOUT ================= */
 .blocklyFlyout {
     margin-top: 1mm;
     margin-bottom: 1mm;
@@ -103,6 +95,7 @@
     border-radius: 1mm;
 }
 
+/* ================= TOOLBOX ICON ================= */
 .toolboxIcons {
     height: 100%;
     aspect-ratio: 1 / 1;
@@ -111,6 +104,7 @@
     background-color: white;
 }
 
+/* ================= DISABLED CATEGORY ================= */
 .blocklyToolboxCategory[disabled="true"] {
     visibility: hidden;
     position: relative;
@@ -130,6 +124,16 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 14%;
-    background-color: rgba(114, 94, 189, 0.5);;
+    background-color: rgba(114, 94, 189, 0.5);
     border-radius: 45% / 150%;
+}
+
+/* ================= SCROLL BAR ================= */
+.blocklyToolboxContents::-webkit-scrollbar {
+    width: 6px;
+}
+
+.blocklyToolboxContents::-webkit-scrollbar-thumb {
+    background: #A494FF;
+    border-radius: 10px;
 }

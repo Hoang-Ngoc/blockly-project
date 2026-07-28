@@ -82,16 +82,18 @@ CustomFields.FieldCalculate.prototype.createUI = function() {
 
     var createButtonListener = function(buttonName) {
         return function() {
-            let val = this.getValue();
+            let val = Number(this.getValue());
             if (buttonName == 'CE') {
                 val = 0;
             } else if (buttonName == 'x') {
                 val = (val - val % 10) / 10;
             } else {
                 // TODO
-                val = val * 10 + buttonName;
+                val = val * 10 + Number(buttonName);
             }
-            this.setValue(val)
+
+            this.setValue(val);
+
             this.editor_.calScreen.textContent = val;
             this.isDirty_ = true;
         }

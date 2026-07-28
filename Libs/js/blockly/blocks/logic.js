@@ -140,6 +140,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "helpUrl": "%{BKY_LOGIC_COMPARE_HELPURL}",
     "extensions": ["logic_compare", "logic_op_tooltip"]
   },
+
   // Block for logical operations: 'and', 'or'.
   {
     "type": "logic_operation",
