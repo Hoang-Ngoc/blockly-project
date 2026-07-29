@@ -459,6 +459,37 @@ Blockly.JavaScript['dummy_play_block'] = function (block) {
   return code;
 };
 
+Blockly.JavaScript['if_block'] = function (block) {
+  var condition =
+    Blockly.JavaScript.valueToCode(
+      block,
+      'condition',
+      Blockly.JavaScript.ORDER_NONE
+    ) || 'false';
+
+  var statements_if =
+    Blockly.JavaScript.statementToCode(block, 'if block');
+
+  var statements_else =
+    Blockly.JavaScript.statementToCode(block, 'else block');
+
+  var code = '';
+
+  code += 'if (' + condition + ') {\n';
+  code += statements_if;
+  code += '}';
+
+  if (statements_else) {
+    code += ' else {\n';
+    code += statements_else;
+    code += '}';
+  }
+
+  code += '\n';
+
+  return code;
+};
+
 Blockly.JavaScript['if1'] = function (block) {
   var value_condition = Blockly.JavaScript.valueToCode(
     block,
@@ -471,10 +502,16 @@ Blockly.JavaScript['if1'] = function (block) {
 };
 
 Blockly.JavaScript['break_continue_loop'] = function (block) {
-  var dropdown_action = block.getFieldValue('action');
-  if (dropdown_action == 'nhảy vòng lặp') var st = 'continue';
-  else st = 'break;';
-  var code = st + ';\n';
+  var action = block.getFieldValue('action');
+
+  var code = '';
+
+  if (action == 'continue loop') {
+    code = 'continue;\n';
+  } else {
+    code = 'break;\n';
+  }
+
   return code;
 };
 

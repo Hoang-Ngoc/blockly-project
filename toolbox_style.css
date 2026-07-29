@@ -1,3 +1,4 @@
+
 /* Adds padding around the group of categories and separators. */
 .blocklyToolboxContents {
     padding-right: 5px;
@@ -133,4 +134,3 @@
     background-color: rgba(114, 94, 189, 0.5);;
     border-radius: 45% / 150%;
 }
-
